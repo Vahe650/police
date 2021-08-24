@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Getter
 @AllArgsConstructor
-public class ResponseDto {
+public final class ResponseDto {
 
     private final int num;
     private final Letter firstSymbol;

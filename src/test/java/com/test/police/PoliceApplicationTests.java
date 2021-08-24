@@ -25,9 +25,9 @@ class PoliceApplicationTests {
     @Test
      void testGetNext() {
         ResponseDto responseDtoWhenNull = new ResponseDto(0, Letter.A, Letter.A, Letter.A);
-        Assertions.assertEquals(RandomNumberGenerator.createResponse(responseDtoWhenNull,"116 RUS"), carNumberService.getNextNumber());
+        Assertions.assertEquals(RandomNumberGenerator.createResponse(responseDtoWhenNull), carNumberService.getNextNumber());
         ResponseDto responseDtoWhenNotNull = new ResponseDto(1, Letter.A, Letter.A, Letter.A);
-        Assertions.assertEquals(RandomNumberGenerator.createResponse(responseDtoWhenNotNull,"116 RUS"), carNumberService.getNextNumber());
+        Assertions.assertEquals(RandomNumberGenerator.createResponse(responseDtoWhenNotNull), carNumberService.getNextNumber());
     }
 
 }

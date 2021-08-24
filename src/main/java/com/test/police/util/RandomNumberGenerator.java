@@ -1,7 +1,8 @@
 package com.test.police.util;
 
-import com.test.police.enums.Letter;
 import com.test.police.dto.ResponseDto;
+import com.test.police.enums.Letter;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -12,10 +13,10 @@ import static com.test.police.enums.Letter.randomLetter;
 public class RandomNumberGenerator {
     private static Set<ResponseDto> cashedResponse = new HashSet<>();
     private static ResponseDto currentResponse;
-    private static final int LAST_NUMBER = 2;
+    private static final int LAST_NUMBER = 999;
 
 
-    public static String generateRandom(String countryCode) {
+    public static String generateRandom() {
         if (isFreeNumber()) {
             Random random = new Random();
             Letter firstSymbol = randomLetter();
@@ -26,10 +27,10 @@ public class RandomNumberGenerator {
             currentResponse = responseDto;
             if (!cashedResponse.contains(responseDto)) {
                 cashedResponse.add(responseDto);
-                return createResponse(responseDto, countryCode);
+                return createResponse(responseDto);
             }
         }
-        return generateNext(countryCode);
+        return generateNext();
     }
 
 
@@ -37,7 +38,7 @@ public class RandomNumberGenerator {
         return String.format("%03d", num);
     }
 
-    public static String generateNext(String countryCode) {
+    public static String generateNext() {
         if (isFreeNumber()) {
             Letter firstSymbol = Letter.A;
             Letter secondSymbol = Letter.A;
@@ -71,14 +72,14 @@ public class RandomNumberGenerator {
             currentResponse = responseDto;
             if (!cashedResponse.contains(responseDto)) {
                 cashedResponse.add(responseDto);
-                return createResponse(responseDto, countryCode);
+                return createResponse(responseDto);
             }
         }
-        return generateNext(countryCode);
+        return generateNext();
     }
 
-    public static String createResponse(ResponseDto responseDto, String countryCode) {
-        return responseDto.getFirstSymbol() + " " + intToString(responseDto.getNum()) + " " + responseDto.getSecondSymbol().name() + responseDto.getThirdSymbol().name() + countryCode;
+    public static String createResponse(ResponseDto responseDto) {
+        return String.format("%s%s%s%s %s", responseDto.getFirstSymbol(), intToString(responseDto.getNum()), responseDto.getSecondSymbol().name(), responseDto.getThirdSymbol().name(), "116 RUS");
     }
 
     private static boolean isFreeNumber() {
